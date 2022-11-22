@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ school.id ? 'Editar ' : 'Nova ' }}escola</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+</div>
+<form #schoolForm="ngForm" (ngSubmit)="onSave()">
+    <div class="modal-body">
+        <div class="alert alert-danger" role="alert" *ngIf="errMsg">
+            {{ errMsg }}
+        </div>
+        <div class="row">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nome <span class="text-danger">*</span></label>
+                <input id="name" class="form-control" name="name" [(ngModel)]="school.name" required />
+            </div>
+            <div class="mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="segment" id="segment-1"
+                        [(ngModel)]="school.segment" value="Ensino Primário">
+                    <label class="form-check-label" for="segment-1">
+                        Ensino Primário
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="segment" id="segment-2"
+                        [(ngModel)]="school.segment" value="Ensino Fundamental">
+                    <label class="form-check-label" for="segment-2">
+                        Ensino Fundamental
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="segment" id="segment-3"
+                        [(ngModel)]="school.segment" value="Ensino Médio">
+                    <label class="form-check-label" for="segment-3">
+                        Ensino Médio
+                    </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Endereço</label>
+                <textarea id="address" class="form-control" name="address" [(ngModel)]="school.address">
+                </textarea>
+            </div>
+            <div class="mb-3">
+                <label for="country" class="form-label">País </label>
+                <input id="country" class="form-control" name="country" [(ngModel)]="school.country" />
+            </div>
+            <div class="mb-3">
+                <label for="max_students" class="form-label">Máximo de estudantes </label>
+                <input id="max_students" type="number" class="form-control" name="max_students"
+                    [(ngModel)]="school.max_students" />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="spinner-border text-primary" role="status" *ngIf="isLoading">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="btn-group" *ngIf="!isLoading">
+            <button type="button" class="btn btn-danger" (click)="onDelete()" *ngIf="school.id">Excluir</button>
+            <button type="submit" class="btn btn-primary" [disabled]="schoolForm.invalid">Salvar</button>
+        </div>
+    </div>
+</form>

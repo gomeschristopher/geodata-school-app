@@ -1,0 +1,41 @@
+<div class="row mb-3">
+    <div class="col-8">
+        <h1>Classes</h1>
+    </div>
+    <div class="col">
+        <button class="btn btn-primary" (click)="onOpenCourseFormModal()">Nova</button>
+    </div>
+</div>
+
+<div class="spinner-border text-primary" role="status" *ngIf="isLoading">
+    <span class="visually-hidden">Loading...</span>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="errMsg">
+    {{ errMsg }}
+ </div>
+
+<table class="table" *ngIf="!isLoading">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Escola</th>
+            <th scope="col">Ativa</th>
+            <th scope="col">Turma</th>
+            <th scope="col">Sala</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let course of courses">
+            <th scope="row">{{ course.id }}</th>
+            <td>{{ course.school.name }}</td>
+            <td>{{ course.is_active ? 'Sim' : 'Não' }}</td>
+            <td>{{ course.team }}</td>
+            <td>{{ course.room }}</td>
+            <td>
+                <button class="btn btn-primary" (click)="onOpenCourseFormModal(course)">Editar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ course.id ? 'Editar ' : 'Nova ' }}classe</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+</div>
+<form #schoolForm="ngForm" (ngSubmit)="onSave()">
+    <div class="modal-body">
+        <div class="alert alert-danger" role="alert" *ngIf="errMsg">
+            {{ errMsg }}
+        </div>
+        <div class="row">
+            <div class="mb-3">
+                <label for="school" class="form-label">Escola <span class="text-danger">*</span></label>
+                <input id="school" class="form-control" name="school" [(ngModel)]="course.school"
+                    [ngbTypeahead]="searchSchools" [inputFormatter]="schoolFormatter" placeholder="Digite para pesquisar"
+                    [resultFormatter]="schoolFormatter" [editable]="false" required />
+            </div>
+            <div class="mb-3">
+                <label for="is_active">Ativa <span class="text-danger">*</span></label>
+                <select id="is_active" class="form-control" [(ngModel)]="course.is_active" name="is_active" required>
+                    <option [value]="1">Sim</option>
+                    <option [value]="0">Não</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="team" class="form-label">Turma <span class="text-danger">*</span></label>
+                <input id="team" class="form-control" name="team" [(ngModel)]="course.team" maxlength="1" required />
+            </div>
+            <div class="mb-3">
+                <label for="room" class="form-label">Sala <span class="text-danger">*</span></label>
+                <input id="room" type="number" class="form-control" name="room" [(ngModel)]="course.room" required />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="spinner-border text-primary" role="status" *ngIf="isLoading">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="btn-group" *ngIf="!isLoading">
+            <button type="button" class="btn btn-danger" (click)="onDelete()" *ngIf="course.id">Excluir</button>
+            <button type="submit" class="btn btn-primary" [disabled]="schoolForm.invalid">Salvar</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,39 @@
+<div class="row mb-3">
+    <div class="col-8">
+        <h1>Alunos</h1>
+    </div>
+    <div class="col">
+        <button class="btn btn-primary" (click)="onOpenStudentFormModal()">Novo</button>
+    </div>
+</div>
+
+<div class="spinner-border text-primary" role="status" *ngIf="isLoading">
+    <span class="visually-hidden">Loading...</span>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="errMsg">
+    {{ errMsg }}
+ </div>
+
+<table class="table" *ngIf="!isLoading">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Idade</th>
+            <th scope="col">Bolsa de estudos</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let student of students">
+            <th scope="row">{{ student.id }}</th>
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.has_scholarship ? 'Sim' : 'Não' }}</td>
+            <td>
+                <button class="btn btn-primary" (click)="onOpenStudentFormModal(student)">Editar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
